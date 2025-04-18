@@ -62,14 +62,9 @@ export async function getSwapiMerged(
     // const fullUrl = `${baseUrl}${id}/`;
     // console.log(`Fetching data from ${fullUrl}`);
 
-    const response = isCache
-    ? { data: cachedData }
-    : await axiosInstance.get<StarWarsCharacter>(`${baseUrl}${id}/`)
-
-
+    const response = isCache ? { data: cachedData } : await axiosInstance.get<StarWarsCharacter>(`${baseUrl}${id}/`)
     // const response = await axiosInstance.get<StarWarsCharacter>(fullUrl);
-    const mission =isCache ? { data: cachedData }
-    :  await getLastMission();
+    const mission =isCache ? { data: cachedData.lastmission }: await getLastMission();
     const randomId = createRandomId();
     const characterData  = {
       id: randomId,
@@ -86,14 +81,14 @@ export async function getSwapiMerged(
       //lastmission: "Climb a glacier",
       createdAt: new Date().toISOString(),
     };
-
+    console.log("Character data:", characterData);
     const result = await ddbClient.send(
       new PutItemCommand({
         TableName: process.env.TABLE_NAME,
         Item: marshall(characterData ),
       })
     );
-
+    console.log("DynamoDB result:", result);
     if (!isCache) {
       const CharacterCache = {
         id: id,
@@ -106,18 +101,18 @@ export async function getSwapiMerged(
         birth_year: response.data.birth_year,
         gender: response.data.gender,
         homeworld: response.data.homeworld,
-        //lastmission: mission,
-        lastmission: response.data.lastmission,
+        lastmission: mission,
         ttl: Math.floor(Date.now() / 1000) + 1800,
         createdAt: new Date().toISOString(),
       };
-
+        console.log("CharacterCache:", CharacterCache);
       await ddbClient.send(
         new PutItemCommand({
           TableName: process.env.TABLE_CACHE_NAME,
           Item: marshall(CharacterCache),
         })
       );
+        console.log("DynamoDB cache result:", result);
     }
 
     return {

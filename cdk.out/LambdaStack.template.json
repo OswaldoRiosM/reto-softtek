@@ -83,7 +83,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "93e0e7cd1cec9c0544e8db9d1531a1fb283dc29eb76aaaae92d9424b733c8ead.zip"
+     "S3Key": "e29096b8ecd974031f0d18708dfaa1b6b61e35fd8bd0cf1c3632839c3e15cf04.zip"
     },
     "Environment": {
      "Variables": {
@@ -124,7 +124,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "LambdaStack/swapi_merged/Resource",
-    "aws:asset:path": "asset.93e0e7cd1cec9c0544e8db9d1531a1fb283dc29eb76aaaae92d9424b733c8ead",
+    "aws:asset:path": "asset.e29096b8ecd974031f0d18708dfaa1b6b61e35fd8bd0cf1c3632839c3e15cf04",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
