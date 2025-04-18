@@ -1,0 +1,36 @@
+{
+  "name": "reto-aws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test-services": "jest --config jest.services.config.ts",
+    "test": "npm run test-services && npm run test-infra",
+    "test2": "jest",
+    "deploy": "cdk deploy --all --outputs-file outputs.json --require-approval never"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.149",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.14.1",
+    "aws-cdk": "^2.1010.0",
+    "aws-cdk-lib": "^2.190.0",
+    "aws-sdk-client-mock": "^4.1.0",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.788.0",
+    "@aws-sdk/util-dynamodb": "^3.788.0",
+    "@types/uuid": "^10.0.0",
+    "axios": "^1.8.4",
+    "redis": "^4.7.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^11.1.0"
+  }
+}

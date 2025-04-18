@@ -1,0 +1,494 @@
+{
+  "version": "41.0.0",
+  "artifacts": {
+    "DataStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "DataStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "DataStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "DataStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e65f2edf27e56042eea4d363a1d8f8eeb79018e3943a39305f2446fe9fd70016.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "DataStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "DataStack.assets"
+      ],
+      "metadata": {
+        "/DataStack/swapiTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "swapiTable69B87D11"
+            }
+          }
+        ],
+        "/DataStack/swapiTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiTable69B87D11"
+          }
+        ],
+        "/DataStack/swapiCacheTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "swapiCacheTable0546034D"
+            }
+          }
+        ],
+        "/DataStack/swapiCacheTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiCacheTable0546034D"
+          }
+        ],
+        "/DataStack/challengeUsersTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "challengeUsersTable268B2CF3"
+            }
+          }
+        ],
+        "/DataStack/challengeUsersTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "challengeUsersTable268B2CF3"
+          }
+        ],
+        "/DataStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/DataStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Fn::GetAtt\":[\"swapiTable69B87D11\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttswapiTable69B87D11ArnDCA0683D"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Fn::GetAtt\":[\"swapiCacheTable0546034D\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttswapiCacheTable0546034DArnDD99B756"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Ref\":\"swapiTable69B87D11\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefswapiTable69B87D11E900495E"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Ref\":\"swapiCacheTable0546034D\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefswapiCacheTable0546034DEB3F2257"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Fn::GetAtt\":[\"challengeUsersTable268B2CF3\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttchallengeUsersTable268B2CF3ArnA92DFF25"
+          }
+        ],
+        "/DataStack/Exports/Output{\"Ref\":\"challengeUsersTable268B2CF3\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefchallengeUsersTable268B2CF3914402C1"
+          }
+        ],
+        "/DataStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/DataStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "DataStack"
+    },
+    "LambdaStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "LambdaStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "LambdaStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "LambdaStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/50115a8a991c9a91e32affe4d170da9537b644093d0485b910f74fe82219f8af.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "LambdaStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "DataStack",
+        "LambdaStack.assets"
+      ],
+      "metadata": {
+        "/LambdaStack/swapi_merged/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapimergedServiceRole664E820A"
+          }
+        ],
+        "/LambdaStack/swapi_merged/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapimergedServiceRoleDefaultPolicy10FDE361"
+          }
+        ],
+        "/LambdaStack/swapi_merged/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapimergedAD400102"
+          }
+        ],
+        "/LambdaStack/swapi_record/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapirecordServiceRoleE5A0B042"
+          }
+        ],
+        "/LambdaStack/swapi_record/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapirecordServiceRoleDefaultPolicyF03A5EE4"
+          }
+        ],
+        "/LambdaStack/swapi_record/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapirecordAA1BB4DE"
+          }
+        ],
+        "/LambdaStack/challenge_users/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "challengeusersServiceRole84587964"
+          }
+        ],
+        "/LambdaStack/challenge_users/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "challengeusersServiceRoleDefaultPolicy3EBEBA2F"
+          }
+        ],
+        "/LambdaStack/challenge_users/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "challengeusers2B47647E"
+          }
+        ],
+        "/LambdaStack/swagger_lambda/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swaggerlambdaServiceRole172876BD"
+          }
+        ],
+        "/LambdaStack/swagger_lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swaggerlambda6E3DF6AC"
+          }
+        ],
+        "/LambdaStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/LambdaStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/LambdaStack/Exports/Output{\"Fn::GetAtt\":[\"swapimergedAD400102\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttswapimergedAD400102Arn7AE24992"
+          }
+        ],
+        "/LambdaStack/Exports/Output{\"Fn::GetAtt\":[\"swapirecordAA1BB4DE\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttswapirecordAA1BB4DEArn570ECC3F"
+          }
+        ],
+        "/LambdaStack/Exports/Output{\"Fn::GetAtt\":[\"challengeusers2B47647E\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttchallengeusers2B47647EArnE20E0620"
+          }
+        ],
+        "/LambdaStack/Exports/Output{\"Fn::GetAtt\":[\"swaggerlambda6E3DF6AC\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttswaggerlambda6E3DF6ACArn5B35F8DC"
+          }
+        ],
+        "/LambdaStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/LambdaStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "LambdaStack"
+    },
+    "ApiStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ApiStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ApiStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "ApiStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b68e3be11b58fd0bdf0f3d419a4a9968131ccf3ef84fc804e9da8e00038091cc.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ApiStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "LambdaStack",
+        "ApiStack.assets"
+      ],
+      "metadata": {
+        "/ApiStack/swapi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapi1D913D28"
+          }
+        ],
+        "/ApiStack/swapi/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiCloudWatchRole0F02639A"
+          }
+        ],
+        "/ApiStack/swapi/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiAccountB3AD0ED8"
+          }
+        ],
+        "/ApiStack/swapi/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiDeploymentA2867C79a679e70ee010477f79072c9a79e5cb67"
+          }
+        ],
+        "/ApiStack/swapi/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiDeploymentStageprod78C8589F"
+          }
+        ],
+        "/ApiStack/swapi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiEndpointECE3D570"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapi7B3C9443"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi/GET/ApiPermission.ApiStackswapiF9394166.GET..swapi": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiGETApiPermissionApiStackswapiF9394166GETswapiC5F4CB25"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi/GET/ApiPermission.Test.ApiStackswapiF9394166.GET..swapi": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiGETApiPermissionTestApiStackswapiF9394166GETswapi314BF121"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiGETFD764C84"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi_record/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiswapirecordEA45215F"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi_record/GET/ApiPermission.ApiStackswapiF9394166.GET..swapi_record": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiswapirecordGETApiPermissionApiStackswapiF9394166GETswapirecordD7AF44F6"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi_record/GET/ApiPermission.Test.ApiStackswapiF9394166.GET..swapi_record": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiswapirecordGETApiPermissionTestApiStackswapiF9394166GETswapirecord7B323574"
+          }
+        ],
+        "/ApiStack/swapi/Default/swapi_record/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapiswapirecordGET76593CCA"
+          }
+        ],
+        "/ApiStack/swapi/Default/challenge_users/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapichallengeusers24FD005E"
+          }
+        ],
+        "/ApiStack/swapi/Default/challenge_users/POST/ApiPermission.ApiStackswapiF9394166.POST..challenge_users": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapichallengeusersPOSTApiPermissionApiStackswapiF9394166POSTchallengeusersBCA179B8"
+          }
+        ],
+        "/ApiStack/swapi/Default/challenge_users/POST/ApiPermission.Test.ApiStackswapiF9394166.POST..challenge_users": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapichallengeusersPOSTApiPermissionTestApiStackswapiF9394166POSTchallengeusersD2FCC91B"
+          }
+        ],
+        "/ApiStack/swapi/Default/challenge_users/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapichallengeusersPOSTEA837494"
+          }
+        ],
+        "/ApiStack/swapi/Default/docs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapidocs44F3B05A"
+          }
+        ],
+        "/ApiStack/swapi/Default/docs/GET/ApiPermission.ApiStackswapiF9394166.GET..docs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapidocsGETApiPermissionApiStackswapiF9394166GETdocs602E41C1"
+          }
+        ],
+        "/ApiStack/swapi/Default/docs/GET/ApiPermission.Test.ApiStackswapiF9394166.GET..docs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapidocsGETApiPermissionTestApiStackswapiF9394166GETdocs114D063F"
+          }
+        ],
+        "/ApiStack/swapi/Default/docs/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "swapidocsGETF3507DE5"
+          }
+        ],
+        "/ApiStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ApiStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/ApiStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ApiStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ApiStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1005.0"
+}

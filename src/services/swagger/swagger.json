@@ -1,0 +1,164 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Star Wars Challenge API",
+      "version": "1.0.0",
+      "description": "API para fusionar datos de SWAPI con misiones y usuarios"
+    },
+    "paths": {
+      "/swapi": {
+        "get": {
+          "summary": "Obtener personaje de Star Wars (y su última misión)",
+          "description": "Fusiona datos de SWAPI con misiones aleatorias. Usa caché si está disponible.",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "ID del personaje de Star Wars (ej. 1)"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Datos del personaje",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "mass": {
+                        "type": "number"
+                      },
+                      "hair_color": {
+                        "type": "string"
+                      },
+                      "skin_color": {
+                        "type": "string"
+                      },
+                      "eye_color": {
+                        "type": "string"
+                      },
+                      "birth_year": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string"
+                      },
+                      "homeworld": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Faltó el parámetro `id`"
+            },
+            "500": {
+              "description": "Error interno"
+            }
+          }
+        }
+      },
+      "/record": {
+        "get": {
+          "summary": "Listar todos los personajes almacenados",
+          "responses": {
+            "200": {
+              "description": "Lista de personajes",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "mass": {
+                          "type": "number"
+                        },
+                        "hair_color": {
+                          "type": "string"
+                        },
+                        "skin_color": {
+                          "type": "string"
+                        },
+                        "eye_color": {
+                          "type": "string"
+                        },
+                        "birth_year": {
+                          "type": "string"
+                        },
+                        "gender": {
+                          "type": "string"
+                        },
+                        "homeworld": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Error interno"
+            }
+          }
+        }
+      },
+      "/users": {
+        "post": {
+          "summary": "Registrar un nuevo usuario del challenge",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuario registrado"
+            },
+            "400": {
+              "description": "Datos inválidos"
+            },
+            "500": {
+              "description": "Error interno"
+            }
+          }
+        }
+      }
+    }
+  }
+  

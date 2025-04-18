@@ -1,0 +1,771 @@
+{
+ "Resources": {
+  "swapimergedServiceRole664E820A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_merged/ServiceRole/Resource"
+   }
+  },
+  "swapimergedServiceRoleDefaultPolicy10FDE361": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "DataStack:ExportsOutputFnGetAttswapiTable69B87D11ArnDCA0683D"
+        },
+        {
+         "Fn::ImportValue": "DataStack:ExportsOutputFnGetAttswapiCacheTable0546034DArnDD99B756"
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "swapimergedServiceRoleDefaultPolicy10FDE361",
+    "Roles": [
+     {
+      "Ref": "swapimergedServiceRole664E820A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_merged/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "swapimergedAD400102": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "93e0e7cd1cec9c0544e8db9d1531a1fb283dc29eb76aaaae92d9424b733c8ead.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Fn::ImportValue": "DataStack:ExportsOutputRefswapiTable69B87D11E900495E"
+      },
+      "TABLE_CACHE_NAME": {
+       "Fn::ImportValue": "DataStack:ExportsOutputRefswapiCacheTable0546034DEB3F2257"
+      },
+      "SWAPI_PEOPLE_URL": "https://swapi.dev/api/people/",
+      "API_NINJAS_URL": "https://api.api-ninjas.com/v1/bucketlist",
+      "API_NINJAS_KEY": "hBnena70Lj6yfGcsccO6Ow==j26CnIprbqSUpf7z",
+      "SWAPI_TIMEOUT": "5000",
+      "SWAPI_MAX_RETRIES": "3",
+      "SWAPI_RETRY_DELAY": "1000",
+      "SWAPI_RETRY_JITTER": "1000",
+      "SWAPI_RETRY_BACKOFF": "2",
+      "SWAPI_RETRY_STATUS_CODES": "500,502,503,504"
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "swapimergedServiceRole664E820A",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "swapimergedServiceRoleDefaultPolicy10FDE361",
+    "swapimergedServiceRole664E820A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_merged/Resource",
+    "aws:asset:path": "asset.93e0e7cd1cec9c0544e8db9d1531a1fb283dc29eb76aaaae92d9424b733c8ead",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "swapirecordServiceRoleE5A0B042": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_record/ServiceRole/Resource"
+   }
+  },
+  "swapirecordServiceRoleDefaultPolicyF03A5EE4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "dynamodb:Scan",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "DataStack:ExportsOutputFnGetAttswapiTable69B87D11ArnDCA0683D"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "swapirecordServiceRoleDefaultPolicyF03A5EE4",
+    "Roles": [
+     {
+      "Ref": "swapirecordServiceRoleE5A0B042"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_record/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "swapirecordAA1BB4DE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "211cdf285b0488ff5b61a5405d42ab40ff425bbb4953d603b9787d16b54848db.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Fn::ImportValue": "DataStack:ExportsOutputRefswapiTable69B87D11E900495E"
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "swapirecordServiceRoleE5A0B042",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "swapirecordServiceRoleDefaultPolicyF03A5EE4",
+    "swapirecordServiceRoleE5A0B042"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swapi_record/Resource",
+    "aws:asset:path": "asset.211cdf285b0488ff5b61a5405d42ab40ff425bbb4953d603b9787d16b54848db",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "challengeusersServiceRole84587964": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/challenge_users/ServiceRole/Resource"
+   }
+  },
+  "challengeusersServiceRoleDefaultPolicy3EBEBA2F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "dynamodb:PutItem",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "DataStack:ExportsOutputFnGetAttchallengeUsersTable268B2CF3ArnA92DFF25"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "challengeusersServiceRoleDefaultPolicy3EBEBA2F",
+    "Roles": [
+     {
+      "Ref": "challengeusersServiceRole84587964"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/challenge_users/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "challengeusers2B47647E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "51f707ba789841a40f725814c1ebf7eb0090cc687de2206624987b3e95a9b8ed.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Fn::ImportValue": "DataStack:ExportsOutputRefchallengeUsersTable268B2CF3914402C1"
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "challengeusersServiceRole84587964",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "challengeusersServiceRoleDefaultPolicy3EBEBA2F",
+    "challengeusersServiceRole84587964"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/challenge_users/Resource",
+    "aws:asset:path": "asset.51f707ba789841a40f725814c1ebf7eb0090cc687de2206624987b3e95a9b8ed",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "swaggerlambdaServiceRole172876BD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swagger_lambda/ServiceRole/Resource"
+   }
+  },
+  "swaggerlambda6E3DF6AC": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "271d1b104458f29c2adaca50958466143b751adc647ab1c076b0932839e0857e.zip"
+    },
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "swaggerlambdaServiceRole172876BD",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "swaggerlambdaServiceRole172876BD"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/swagger_lambda/Resource",
+    "aws:asset:path": "asset.271d1b104458f29c2adaca50958466143b751adc647ab1c076b0932839e0857e",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWOzQqDMBCEn8X7utV46rEKPZaiDyBrjLL+JOAmlSK+e1Hp6Zs5zMcoTO8JJhGtEut2jCducKs86RFolXqbaG5aqq1rzSD4OvEMVnt2Fphm3Eo3GSg6e/LtJtbfo15pB8lqEjFe8HEAJMM86NH4nMTApceis3/pDqURFxZt4BxUnnq2/Q7HBRzk9lEKU4VJNAhzvATreTZYXvwBIdH9hs8AAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "LambdaStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Outputs": {
+  "ExportsOutputFnGetAttswapimergedAD400102Arn7AE24992": {
+   "Value": {
+    "Fn::GetAtt": [
+     "swapimergedAD400102",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "LambdaStack:ExportsOutputFnGetAttswapimergedAD400102Arn7AE24992"
+   }
+  },
+  "ExportsOutputFnGetAttswapirecordAA1BB4DEArn570ECC3F": {
+   "Value": {
+    "Fn::GetAtt": [
+     "swapirecordAA1BB4DE",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "LambdaStack:ExportsOutputFnGetAttswapirecordAA1BB4DEArn570ECC3F"
+   }
+  },
+  "ExportsOutputFnGetAttchallengeusers2B47647EArnE20E0620": {
+   "Value": {
+    "Fn::GetAtt": [
+     "challengeusers2B47647E",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "LambdaStack:ExportsOutputFnGetAttchallengeusers2B47647EArnE20E0620"
+   }
+  },
+  "ExportsOutputFnGetAttswaggerlambda6E3DF6ACArn5B35F8DC": {
+   "Value": {
+    "Fn::GetAtt": [
+     "swaggerlambda6E3DF6AC",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "LambdaStack:ExportsOutputFnGetAttswaggerlambda6E3DF6ACArn5B35F8DC"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
